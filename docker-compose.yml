@@ -1,0 +1,16 @@
+services:
+  lucidadl:
+    build: .
+    image: lucidadl:local
+    container_name: lucidadl
+    stdin_open: true   # necessário para o menu interactivo (TUI)
+    tty: true
+    init: true
+    shm_size: "1gb"    # o Chromium precisa de memória partilhada
+    volumes:
+      # Musicas descarregadas -> pasta do teu PC
+      - ~/lucida/downloads:/downloads
+      # Cookie do Cloudflare, state.json, config, logs (para nao perderes ao recriar o contentor)
+      - ~/lucida/data:/data
+      # Listas para `lucida tracks` / `lucida albums`
+      - ~/lucida/inputs:/app/inputs
